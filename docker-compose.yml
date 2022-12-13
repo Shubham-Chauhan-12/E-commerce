@@ -1,0 +1,71 @@
+version: '3.9'
+services:
+  customer-services:
+    image: customerimage
+    container_name: customercontainer
+    build: BEJ_C2_S3_REST_API_MONGODB_PC_1
+    restart: always
+    networks:
+      - mynetwork
+    ports:
+      - 8086:8086
+    depends_on:
+      - mongoService
+      - cloudapiservice
+
+  mongoService:
+    image: mongo
+    container_name: mongocontainer
+    ports:
+      - 27017:27017
+    networks:
+      - mynetwork
+
+  authentication-service:
+    image: authenticationimg
+    container_name: authcontainer
+    build: UserAuthentication
+    restart: always
+    networks:
+      - mynetwork
+    ports:
+      - 8085:8085
+    depends_on:
+      - mysqlService
+      - cloudapiservice
+
+  mysqlService:
+    image: mysql
+    container_name: mysqlContainer
+    networks:
+      - mynetwork
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: root
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+
+  cloudapiservice:
+    image: apigateway-service
+    build: apiGateway
+    restart: always
+    networks:
+      - mynetwork
+    ports:
+      - 9000:9000
+
+  eureka-server:
+    container_name: eurekacontainer
+    build: EurekaServer/
+    restart: always
+    networks:
+      - mynetwork
+    ports:
+      - 8761:8761
+
+
+networks:
+  mynetwork:
+    driver: bridge
