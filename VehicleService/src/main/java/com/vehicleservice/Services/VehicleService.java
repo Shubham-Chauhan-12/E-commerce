@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VehicleService implements IVehicleService {
@@ -45,6 +46,27 @@ public class VehicleService implements IVehicleService {
         }
         vehiclesRepository.deleteById(vehicleId);
         return true;
+    }
+
+    @Override
+    public VehiclesData updateVehicleDetails(VehiclesData vehiclesData) {
+        VehiclesData vehiclesData1 = null;
+        Optional<VehiclesData> vehiclesById = vehiclesRepository.findById(vehiclesData.getVehicleId());
+
+        if (vehiclesById.isPresent()){
+            vehiclesData1 = vehiclesById.get();
+            vehiclesData1.setVehicleId(vehiclesData.getVehicleId());
+            vehiclesData1.setVehicleBrand(vehiclesData.getVehicleBrand());
+            vehiclesData1.setVehicleModel(vehiclesData.getVehicleModel());
+            vehiclesData1.setVehicleVariant(vehiclesData.getVehicleVariant());
+            vehiclesData1.setVehicleColor(vehiclesData.getVehicleColor());
+            vehiclesData1.setManufactureYear(vehiclesData.getManufactureYear());
+            vehiclesData1.setPrice(vehiclesData.getPrice());
+
+        }else {
+            return new VehiclesData();
+        }
+        return vehiclesData1;
     }
 
     @Override

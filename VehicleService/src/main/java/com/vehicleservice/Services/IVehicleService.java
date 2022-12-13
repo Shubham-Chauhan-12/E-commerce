@@ -8,11 +8,13 @@ import java.util.List;
 
 public interface IVehicleService {
 
-    VehiclesData saveAllVehiclesDetails(VehiclesData adminData) throws VehicleAlreadyExistException;
+    VehiclesData saveAllVehiclesDetails(VehiclesData vehiclesData) throws VehicleAlreadyExistException;
 
     List<VehiclesData> fetchAllVehiclesDetails() throws VehicleNotExistException;
 
     boolean deleteVehicleDetailsById(int vehicleId) throws VehicleNotExistException;
+
+    VehiclesData updateVehicleDetails(VehiclesData vehiclesData);
 
     VehiclesData findByVehicleModel(String vehicleModel) throws VehicleNotExistException;
 }
