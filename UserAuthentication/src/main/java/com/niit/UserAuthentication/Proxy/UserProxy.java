@@ -9,7 +9,7 @@ import java.util.List;
 
 @FeignClient(name = "adminData-services",url = "adminData-services:8086")
 public interface UserProxy {
-    @GetMapping("/vehicles/v1/view-vehicle")
+    @GetMapping("/vehicles/v1/get-vehicle")
     List<UserModel> getProxy();
 
     @GetMapping("/vehicles/v1/get-byModel/{vehicleModel}")

@@ -54,6 +54,7 @@ public class UserServiceImpl implements UserService
     }
     @Override
     public UserModel fetchByModel(String vehicleModel) {
+//        userProxy.getProxy();
         return userProxy.searchVehicle(vehicleModel);
     }
 }

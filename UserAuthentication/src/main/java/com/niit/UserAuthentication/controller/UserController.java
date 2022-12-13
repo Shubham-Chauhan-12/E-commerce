@@ -14,6 +14,7 @@ import java.util.Map;
 
 //@RequestMapping("/userservice")
 @RestController
+@CrossOrigin
 public class UserController
 {
     private UserService userService;
@@ -34,22 +35,27 @@ public class UserController
 
     @GetMapping("/login")
     public ResponseEntity<?> loginCheck(@RequestBody UserModel user ) throws UserNotFoundException {
-        Map<String, String> map=null;
-        try{
-            UserModel result = userService.loginCheck(user.getEmail(),user.getPassword());
+        Map<String, String> map = null;
+        try {
+            UserModel result = userService.loginCheck(user.getEmailId(), user.getPassword());
 
-            map= securityTokenGenerator.generateToken(result);
-            return new ResponseEntity<>(map,HttpStatus.OK);
-        }
-        catch(UserNotFoundException ex){
+            map = securityTokenGenerator.generateToken(result);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } catch (UserNotFoundException ex) {
             throw new UserNotFoundException();
+        } catch (Exception ex) {
+            return new ResponseEntity<>("Other exception", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        catch(Exception ex){
-            return new ResponseEntity<>("Other exception",HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
     }
 
-
-
+    @GetMapping("/api/v1/userview-vehicle")
+    public ResponseEntity<?> vehiclesView(){
+            return new ResponseEntity<>(userService.fetchAllVehicles(),HttpStatus.OK);
     }
+
+    @GetMapping("/api/v1/userview-vehicle/{vehicleModel}")
+    public ResponseEntity<?> vehicleByModel(@PathVariable String vehicleModel){
+        return new ResponseEntity<>(userService.fetchByModel(vehicleModel),HttpStatus.OK);
+    }
+
+}

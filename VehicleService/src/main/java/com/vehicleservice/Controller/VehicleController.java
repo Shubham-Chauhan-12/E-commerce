@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/vehicles/v1")
+@CrossOrigin
 public class VehicleController {
 
     private VehicleService vehicleService;
@@ -38,7 +39,7 @@ public class VehicleController {
     @GetMapping("/get-vehicle")
     public ResponseEntity<?> fetchAllVehicles() throws VehicleNotExistException {
         try {
-            return new ResponseEntity<>(vehicleService.fetchAllVehiclesDetails(), HttpStatus.FOUND);
+            return new ResponseEntity<>(vehicleService.fetchAllVehiclesDetails(), HttpStatus.OK);
         }
         catch (VehicleNotExistException e) {
             throw new VehicleNotExistException();
@@ -71,7 +72,7 @@ public class VehicleController {
     @GetMapping("/get-byModel/{vehicleModel}")
     public ResponseEntity<?> fetchByVehicleModel(@PathVariable String vehicleModel) throws VehicleNotExistException {
         try {
-            return new ResponseEntity<>(vehicleService.findByVehicleModel(vehicleModel),HttpStatus.FOUND);
+            return new ResponseEntity<>(vehicleService.findByVehicleModel(vehicleModel),HttpStatus.OK);
         }
         catch (VehicleNotExistException e){
             throw new VehicleNotExistException();

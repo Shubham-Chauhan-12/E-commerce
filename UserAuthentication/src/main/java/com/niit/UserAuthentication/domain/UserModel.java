@@ -7,12 +7,13 @@ import javax.persistence.Id;
 @Entity
 public class UserModel
 {
-    @Id
+
     @GeneratedValue
     private int userId;
     private String firstName;
     private String lastName;
     private long mobileNo;
+    @Id
     private String emailId;
     private String password;
     private String confirmPassword;

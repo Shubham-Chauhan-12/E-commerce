@@ -13,14 +13,13 @@ public class SecurityTokenGeneratorImpl implements SecurityTokenGenerator
 {
     @Override
     public Map<String, String> generateToken(UserModel user) {
-        String jwttoken = Jwts.builder()
-                .setSubject(user.getEmail())
-                .setIssuedAt(new Date())
-                .signWith(SignatureAlgorithm.HS256,"mykey").compact();
+        String jwtToken = null;
+        jwtToken = Jwts.builder().setSubject(user.getEmailId()).setIssuedAt(new Date())
+                .signWith(SignatureAlgorithm.HS256,"secretkey").compact();
 
         Map<String,String> map = new HashMap<>();
-        map.put("token",jwttoken);
-        map.put("message","User successfully logged in");
+        map.put("token",jwtToken);
+        map.put("message", "User Successfully Logged in");
         return map;
 
     }

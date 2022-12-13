@@ -1,9 +1,9 @@
 version: '3.9'
 services:
-  customer-services:
-    image: customerimage
-    container_name: customercontainer
-    build: BEJ_C2_S3_REST_API_MONGODB_PC_1
+  adminData-services:
+    image: vehiclesimage
+    container_name: vehiclecontainer
+    build: VehicleService
     restart: always
     networks:
       - mynetwork
@@ -15,7 +15,7 @@ services:
 
   mongoService:
     image: mongo
-    container_name: mongocontainer
+    container_name: mongoContainer
     ports:
       - 27017:27017
     networks:
@@ -49,7 +49,7 @@ services:
 
   cloudapiservice:
     image: apigateway-service
-    build: apiGateway
+    build: ApiGateway
     restart: always
     networks:
       - mynetwork

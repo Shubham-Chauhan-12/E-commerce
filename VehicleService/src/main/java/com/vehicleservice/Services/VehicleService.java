@@ -25,7 +25,7 @@ public class VehicleService implements IVehicleService {
 
     @Override
     public VehiclesData saveAllVehiclesDetails(VehiclesData vehiclesData) throws VehicleAlreadyExistException {
-        if (vehiclesRepository.findById(vehiclesData.getVehicleId()).isEmpty()){
+        if (vehiclesRepository.findById(vehiclesData.getVehicleId()).isPresent()){
             throw new VehicleAlreadyExistException();
         }
         return vehiclesRepository.save(vehiclesData);
@@ -62,6 +62,7 @@ public class VehicleService implements IVehicleService {
             vehiclesData1.setVehicleColor(vehiclesData.getVehicleColor());
             vehiclesData1.setManufactureYear(vehiclesData.getManufactureYear());
             vehiclesData1.setPrice(vehiclesData.getPrice());
+            vehiclesRepository.save(vehiclesData1);
 
         }else {
             return new VehiclesData();
@@ -70,10 +71,13 @@ public class VehicleService implements IVehicleService {
     }
 
     @Override
-     public VehiclesData findByVehicleModel(String prodName) throws VehicleNotExistException {
-        if (vehiclesRepository.findByVehicleModel(prodName).getVehicleModel().isEmpty()){
+     public VehiclesData findByVehicleModel(String vehicleModel) throws VehicleNotExistException {
+        if (vehiclesRepository.findByVehicleModel(vehicleModel).getVehicleModel().isEmpty()){
             throw new VehicleNotExistException();
         }
-        return vehiclesRepository.findByVehicleModel(prodName);
+        return vehiclesRepository.findByVehicleModel(vehicleModel);
     }
 }
+
+
+//vehiclesRepository.findByVehicleModel(vehicleModel).getVehicleModel().isEmpty()
