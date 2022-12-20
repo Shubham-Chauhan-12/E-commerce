@@ -16,5 +16,5 @@ public interface IVehicleService {
 
     VehiclesData updateVehicleDetails(VehiclesData vehiclesData);
 
-    VehiclesData findByVehicleModel(String vehicleModel) throws VehicleNotExistException;
+    VehiclesData findByVehicleModel(String vehicleModel);
 }

@@ -9,9 +9,11 @@ import java.util.List;
 public interface UserService
 {
     UserModel addUser(UserModel user) throws UserAlreadyExistException;
-    UserModel loginCheck(String email , String userPassword) throws UserNotFoundException;
+    UserModel loginCheckUser(String email,String password);
 
     List<UserModel> fetchAllVehicles();
+
+    List<UserModel> fetchalluser();
 
     UserModel fetchByModel(String vehicleModel);
 

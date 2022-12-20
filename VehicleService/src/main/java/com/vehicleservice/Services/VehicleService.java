@@ -71,13 +71,12 @@ public class VehicleService implements IVehicleService {
     }
 
     @Override
-     public VehiclesData findByVehicleModel(String vehicleModel) throws VehicleNotExistException {
-        if (vehiclesRepository.findByVehicleModel(vehicleModel).getVehicleModel().isEmpty()){
-            throw new VehicleNotExistException();
-        }
+     public VehiclesData findByVehicleModel(String vehicleModel) {
+//        if (vehiclesRepository.findByVehicleModel(vehicleModel).getVehicleModel().isEmpty()){
+//            throw new VehicleNotExistException();
+//        }
         return vehiclesRepository.findByVehicleModel(vehicleModel);
     }
 }
 
 
-//vehiclesRepository.findByVehicleModel(vehicleModel).getVehicleModel().isEmpty()

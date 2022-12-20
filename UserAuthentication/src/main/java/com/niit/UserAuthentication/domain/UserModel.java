@@ -1,20 +1,20 @@
 package com.niit.UserAuthentication.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class UserModel
 {
 
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private int userId;
     private String firstName;
     private String lastName;
     private long mobileNo;
-    @Id
-    private String emailId;
+
+    @Column(unique = true)
+    private String email;
     private String password;
     private String confirmPassword;
     private String vehicleBrand;
@@ -27,12 +27,12 @@ public class UserModel
     public UserModel() {
     }
 
-    public UserModel(int userId, String firstName, String lastName, long mobileNo, String emailId, String password, String confirmPassword, String vehicleBrand, String vehicleModel, String vehicleVariant, String vehicleColor, int manufactureYear, long price) {
+    public UserModel(int userId, String firstName, String lastName, long mobileNo, String email, String password, String confirmPassword, String vehicleBrand, String vehicleModel, String vehicleVariant, String vehicleColor, int manufactureYear, long price) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.mobileNo = mobileNo;
-        this.emailId = emailId;
+        this.email = email;
         this.password = password;
         this.confirmPassword = confirmPassword;
         this.vehicleBrand = vehicleBrand;
@@ -75,12 +75,12 @@ public class UserModel
         this.mobileNo = mobileNo;
     }
 
-    public String getEmailId() {
-        return emailId;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -154,7 +154,7 @@ public class UserModel
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", mobileNo=" + mobileNo +
-                ", emailId='" + emailId + '\'' +
+                ", emailId='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", confirmPassword='" + confirmPassword + '\'' +
                 ", vehicleBrand='" + vehicleBrand + '\'' +

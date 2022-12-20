@@ -9,5 +9,4 @@ public interface VehiclesRepository extends MongoRepository<VehiclesData,Integer
 
     VehiclesData findByVehicleModel(String vehicleModel);
 
-
 }

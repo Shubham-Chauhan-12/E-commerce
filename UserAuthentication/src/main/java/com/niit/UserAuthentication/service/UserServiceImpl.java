@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService
 
     @Override
     public UserModel addUser(UserModel user) throws UserAlreadyExistException {
-        if (userRepository.findById(user.getEmailId()).isPresent()) {
+        if (userRepository.findById(user.getUserId()).isPresent()) {
             throw new UserAlreadyExistException();
         }
         else {
@@ -35,23 +35,23 @@ public class UserServiceImpl implements UserService
     }
 
     @Override
-    public UserModel loginCheck(String email, String userPassword) throws UserNotFoundException
-    {
-        UserModel user = userRepository.findByEmailIdAndPassword(email,userPassword);
-        if(user!=null){ //authentication is ok
-            return user;
-        }
-        else{ // authentication failed
-            throw new UserNotFoundException();
-        }
-
+    public UserModel loginCheckUser(String email, String password) {
+        UserModel detail = userRepository.findByEmailAndPassword(email, password);
+        return detail;
     }
+
 
     @Override
     public List<UserModel> fetchAllVehicles() {
 
         return userProxy.getProxy();
     }
+
+    @Override
+    public List<UserModel> fetchalluser() {
+        return userRepository.findAll();
+    }
+
     @Override
     public UserModel fetchByModel(String vehicleModel) {
 //        userProxy.getProxy();

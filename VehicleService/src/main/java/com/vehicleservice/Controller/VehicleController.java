@@ -70,16 +70,10 @@ public class VehicleController {
     }
 
     @GetMapping("/get-byModel/{vehicleModel}")
-    public ResponseEntity<?> fetchByVehicleModel(@PathVariable String vehicleModel) throws VehicleNotExistException {
-        try {
+    public ResponseEntity<?> fetchByVehicleModel(@PathVariable String vehicleModel) {
+
             return new ResponseEntity<>(vehicleService.findByVehicleModel(vehicleModel),HttpStatus.OK);
-        }
-        catch (VehicleNotExistException e){
-            throw new VehicleNotExistException();
-        }
-        catch (Exception e ){
-            return new ResponseEntity<>("OOps Server Error! please try again after Sometime",HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+
 
     }
 }
